@@ -1,0 +1,22 @@
+{
+  "name": "digital-clock-mean",
+  "version": "1.0.0",
+  "description": "A MEAN stack digital clock application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "latest",
+    "mongoose": "latest",
+    "cors": "latest",
+    "dotenv": "latest",
+    "body-parser": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "latest"
+  },
+  "author": "swamy183",
+  "license": "MIT"
+}
