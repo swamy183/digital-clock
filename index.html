@@ -14,13 +14,11 @@
             --color-border: rgba(119, 124, 124, 0.3);
             --font-family-mono: 'Courier New', monospace;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #1f2121 0%, #262828 100%);
@@ -31,180 +29,336 @@
             justify-content: center;
             color: var(--color-text);
         }
-
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 2rem;
         }
-
         .header h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--color-primary);
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
         }
-
         .header p {
-            font-size: 14px;
             color: var(--color-text-secondary);
+            font-size: 0.9rem;
         }
-
         .clock-container {
             background: var(--color-surface);
-            padding: 60px 80px;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--color-border);
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            min-width: 600px;
         }
-
-        .time-display {
+        .clock-display {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .time {
+            font-size: 5rem;
             font-family: var(--font-family-mono);
-            font-size: 72px;
-            font-weight: 700;
-            text-align: center;
             color: var(--color-primary);
-            letter-spacing: 8px;
-            text-shadow: 0 0 20px rgba(50, 184, 198, 0.5);
+            text-shadow: 0 0 20px rgba(50, 184, 198, 0.3);
+            letter-spacing: 0.1em;
         }
-
-        .date-display {
-            font-size: 18px;
-            text-align: center;
-            margin-top: 20px;
+        .date {
             color: var(--color-text-secondary);
-            font-weight: 400;
+            font-size: 1.2rem;
+            margin-top: 1rem;
         }
-
-        .day-display {
-            font-size: 16px;
-            text-align: center;
-            margin-top: 8px;
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .control-group label {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+        }
+        select {
+            background: var(--color-background);
             color: var(--color-text);
-            font-weight: 500;
+            border: 1px solid var(--color-border);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 200px;
+            cursor: pointer;
+            transition: border-color 0.3s;
         }
-
-        .footer {
-            margin-top: 40px;
+        select:hover {
+            border-color: var(--color-primary);
+        }
+        select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--color-border);
+            transition: 0.3s;
+            border-radius: 30px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        input:checked + .toggle-slider {
+            background-color: var(--color-primary);
+        }
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+        .status-message {
             text-align: center;
-            color: var(--color-text-secondary);
-            font-size: 12px;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: none;
         }
-
-        .tech-badge {
-            display: inline-block;
-            background: rgba(50, 184, 198, 0.1);
-            padding: 6px 12px;
-            border-radius: 20px;
-            margin: 0 4px;
-            font-weight: 500;
+        .status-message.success {
+            background-color: rgba(50, 184, 198, 0.2);
             color: var(--color-primary);
-            border: 1px solid rgba(50, 184, 198, 0.3);
+            border: 1px solid var(--color-primary);
         }
-
-        @media (max-width: 768px) {
-            .clock-container {
-                padding: 40px 50px;
-            }
-
-            .time-display {
-                font-size: 48px;
-                letter-spacing: 4px;
-            }
-
-            .date-display {
-                font-size: 16px;
-            }
+        .status-message.error {
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid #f44336;
         }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .clock-container {
-                padding: 30px 40px;
-            }
-
-            .time-display {
-                font-size: 36px;
-                letter-spacing: 2px;
-            }
-
-            .date-display {
-                font-size: 14px;
-            }
-
-            .day-display {
-                font-size: 14px;
-            }
+        .status-message.info {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid #ffc107;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Digital Clock Application</h1>
-        <p>Built with <span class="tech-badge">HTML</span> <span class="tech-badge">CSS</span> <span class="tech-badge">JavaScript</span></p>
+        <h1>DIGITAL CLOCK</h1>
+        <p>MEAN Stack Demo with Backend Integration</p>
     </div>
 
     <div class="clock-container">
-        <div id="time" class="time-display">00:00:00</div>
-        <div id="date" class="date-display">Loading...</div>
-        <div id="day" class="day-display"></div>
-    </div>
+        <div class="clock-display">
+            <div class="time" id="clock">00:00:00</div>
+            <div class="date" id="date">Loading...</div>
+        </div>
 
-    <div class="footer">
-        <p>Real-time clock for MEAN Stack Internal Exam Project</p>
-        <p style="margin-top: 8px; opacity: 0.7;">Updates every second automatically</p>
+        <div class="controls">
+            <div class="control-group">
+                <label for="timezone">Timezone</label>
+                <select id="timezone">
+                    <option value="America/New_York">New York (EST/EDT)</option>
+                    <option value="America/Chicago">Chicago (CST/CDT)</option>
+                    <option value="America/Denver">Denver (MST/MDT)</option>
+                    <option value="America/Los_Angeles">Los Angeles (PST/PDT)</option>
+                    <option value="America/Phoenix">Phoenix (MST)</option>
+                    <option value="Europe/London">London (GMT/BST)</option>
+                    <option value="Europe/Paris">Paris (CET/CEST)</option>
+                    <option value="Europe/Berlin">Berlin (CET/CEST)</option>
+                    <option value="Asia/Tokyo">Tokyo (JST)</option>
+                    <option value="Asia/Shanghai">Shanghai (CST)</option>
+                    <option value="Asia/Dubai">Dubai (GST)</option>
+                    <option value="Asia/Kolkata">Kolkata (IST)</option>
+                    <option value="Australia/Sydney">Sydney (AEDT/AEST)</option>
+                    <option value="Pacific/Auckland">Auckland (NZDT/NZST)</option>
+                    <option value="UTC">UTC</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="format-toggle">24-Hour Format</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="format-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="status-message" id="status-message"></div>
     </div>
 
     <script>
+        // Environment detection
+        const isLocalhost = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1' || 
+                           window.location.hostname === '';
+        
+        const API_BASE_URL = isLocalhost ? 'http://localhost:3000' : '';
+        const API_SETTINGS_ENDPOINT = `${API_BASE_URL}/api/clock/settings`;
+
+        // State management
+        let currentSettings = {
+            timezone: 'America/New_York',
+            format24: false
+        };
+
+        // DOM elements
+        const clockElement = document.getElementById('clock');
+        const dateElement = document.getElementById('date');
+        const timezoneSelect = document.getElementById('timezone');
+        const formatToggle = document.getElementById('format-toggle');
+        const statusMessage = document.getElementById('status-message');
+
+        // Display status message
+        function showStatus(message, type = 'info') {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+            statusMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // Fetch settings from backend
+        async function fetchSettings() {
+            if (!isLocalhost) {
+                // On GitHub Pages, use default settings
+                showStatus('Using default settings (GitHub Pages mode)', 'info');
+                updateClock();
+                return;
+            }
+
+            try {
+                const response = await fetch(API_SETTINGS_ENDPOINT, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.timezone) currentSettings.timezone = data.timezone;
+                    if (data.format24 !== undefined) currentSettings.format24 = data.format24;
+                    
+                    // Update UI with fetched settings
+                    timezoneSelect.value = currentSettings.timezone;
+                    formatToggle.checked = currentSettings.format24;
+                    
+                    showStatus('Settings loaded from backend', 'success');
+                } else {
+                    throw new Error('Failed to fetch settings');
+                }
+            } catch (error) {
+                console.error('Error fetching settings:', error);
+                showStatus('Could not connect to backend, using defaults', 'error');
+            }
+            
+            updateClock();
+        }
+
+        // Save settings to backend
+        async function saveSettings() {
+            if (!isLocalhost) {
+                showStatus('Settings saved locally (GitHub Pages mode)', 'success');
+                updateClock();
+                return;
+            }
+
+            try {
+                const response = await fetch(API_SETTINGS_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(currentSettings)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    showStatus('Settings saved to backend', 'success');
+                } else {
+                    throw new Error('Failed to save settings');
+                }
+            } catch (error) {
+                console.error('Error saving settings:', error);
+                showStatus('Could not save to backend', 'error');
+            }
+            
+            updateClock();
+        }
+
+        // Update clock display
         function updateClock() {
             const now = new Date();
             
-            // Get hours, minutes, and seconds
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
+            // Format time based on timezone and format preference
+            const timeOptions = {
+                timeZone: currentSettings.timezone,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: !currentSettings.format24
+            };
             
-            // Determine AM/PM
-            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const dateOptions = {
+                timeZone: currentSettings.timezone,
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
             
-            // Convert to 12-hour format
-            hours = hours % 12;
-            hours = hours ? hours : 12; // If 0, make it 12
-            
-            // Add leading zeros
-            hours = String(hours).padStart(2, '0');
-            minutes = String(minutes).padStart(2, '0');
-            seconds = String(seconds).padStart(2, '0');
-            
-            // Format time string
-            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
-            
-            // Get date components
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
-                          'July', 'August', 'September', 'October', 'November', 'December'];
-            
-            const dayName = days[now.getDay()];
-            const monthName = months[now.getMonth()];
-            const date = now.getDate();
-            const year = now.getFullYear();
-            
-            // Format date string
-            const dateString = `${monthName} ${date}, ${year}`;
-            
-            // Update DOM
-            document.getElementById('time').textContent = timeString;
-            document.getElementById('date').textContent = dateString;
-            document.getElementById('day').textContent = dayName;
+            try {
+                clockElement.textContent = now.toLocaleTimeString('en-US', timeOptions);
+                dateElement.textContent = now.toLocaleDateString('en-US', dateOptions);
+            } catch (error) {
+                console.error('Error updating clock:', error);
+                clockElement.textContent = 'Error';
+                dateElement.textContent = 'Invalid timezone';
+            }
         }
-        
-        // Update clock immediately
-        updateClock();
-        
-        // Update every second
-        setInterval(updateClock, 1000);
+
+        // Event listeners
+        timezoneSelect.addEventListener('change', () => {
+            currentSettings.timezone = timezoneSelect.value;
+            saveSettings();
+        });
+
+        formatToggle.addEventListener('change', () => {
+            currentSettings.format24 = formatToggle.checked;
+            saveSettings();
+        });
+
+        // Initialize
+        window.addEventListener('load', () => {
+            fetchSettings();
+            setInterval(updateClock, 1000);
+        });
     </script>
 </body>
 </html>
